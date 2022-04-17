@@ -1,5 +1,6 @@
 import React, { useReducer } from "react";
 import AuthContext from "../../context/AuthContext.js";
+import { login, signUp } from "../../services/api.js";
 import reducer from "../../reducer/reducer.js";
 import {
   DISPLAY_ALERT,
@@ -15,9 +16,8 @@ const initialState = {
   showAlert: false,
   alertText: "",
   alertType: "",
-  activeUser: false,
+  activeUser: null,
 };
-
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   function displayAlert() {
@@ -33,7 +33,9 @@ function AuthProvider({ children }) {
   async function handleSignUp(currentUser) {
     dispatch({ type: SETUP_USER_BEGIN });
     try {
-      dispatch({ type: SETUP_USER_SUCCESS });
+      const user = await signUp(currentUser);
+      console.log(user);
+      dispatch({ type: SETUP_USER_SUCCESS, payload: {} });
     } catch (error) {
       dispatch({ type: SETUP_USER_ERROR });
     }
@@ -43,6 +45,8 @@ function AuthProvider({ children }) {
   async function handleLogIn(currentUser) {
     dispatch({ type: SETUP_USER_BEGIN });
     try {
+      const user = await login(currentUser);
+      console.log(user);
       dispatch({ type: SETUP_USER_SUCCESS });
     } catch (error) {
       dispatch({ type: SETUP_USER_ERROR });
