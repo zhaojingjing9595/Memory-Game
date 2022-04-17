@@ -1,8 +1,10 @@
 import React from "react";
 import "./Card.css";
-function Card({ card, handleChoice, flipped }) {
+function Card({ card, handleChoice, flipped, disabled }) {
   function handleClick() {
-    handleChoice(card);
+    if (!disabled) {
+      handleChoice(card);
+    }
   }
   return (
     <div className={flipped ? "flipped" : ""}>
