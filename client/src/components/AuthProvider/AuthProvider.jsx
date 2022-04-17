@@ -30,10 +30,10 @@ function AuthProvider({ children }) {
     }, 3000);
   }
 
-  async function handleSignUp(currentUser) {
+  async function handleSignUp(nickName, email, pwd, confirmPwd) {
     dispatch({ type: SETUP_USER_BEGIN });
     try {
-      const user = await signUp(currentUser);
+      const user = await signUp(nickName, email, pwd, confirmPwd);
       console.log(user);
       dispatch({ type: SETUP_USER_SUCCESS, payload: {} });
     } catch (error) {
@@ -42,10 +42,10 @@ function AuthProvider({ children }) {
     clearAlert();
   }
 
-  async function handleLogIn(currentUser) {
+  async function handleLogIn(email, password) {
     dispatch({ type: SETUP_USER_BEGIN });
     try {
-      const user = await login(currentUser);
+      const user = await login(email, password);
       console.log(user);
       dispatch({ type: SETUP_USER_SUCCESS });
     } catch (error) {

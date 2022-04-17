@@ -1,6 +1,7 @@
 import { appDB } from "../index.js";
 
 async function login(email, password) {
+  // const { email, password } = currentUser;
   const result = await appDB.from("users").where({ email, password });
   console.log(result);
   return result;

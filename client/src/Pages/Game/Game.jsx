@@ -75,7 +75,7 @@ function Game() {
 
   useEffect(() => {
     if (matches === cardImages.length) {
-      console.log("prueba");
+      
       setShowModalWin(true);
     }
   }, [matches]);

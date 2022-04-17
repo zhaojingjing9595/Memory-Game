@@ -29,7 +29,7 @@ function GetIn() {
       return;
     } else {
       const currentUser = { email, pwd };
-      await onLogIn(currentUser);
+      await onLogIn(email, pwd);
       navigate("/");
       setEmail("");
       setPwd("");
@@ -42,8 +42,8 @@ function GetIn() {
       displayAlert();
       return;
     } else {
-      const currentUser = { nickName, email, pwd, confirmPwd };
-      await onSignUp(currentUser);
+      // const currentUser = { nickName, email, pwd, confirmPwd };
+      await onSignUp(nickName, email, pwd, confirmPwd);
       navigate("/");
       setNickName("");
       setEmail("");
