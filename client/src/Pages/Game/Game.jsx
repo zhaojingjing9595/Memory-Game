@@ -29,13 +29,20 @@ function Game() {
     const shuffledCards = [...cardImages, ...cardImages]
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: uuidv4() }));
+    setChoiceOne(null);
+    setChoiceTwo(null);
     setCards(shuffledCards);
     setTurns(0);
   }
   function handleChoice(cardChosen) {
     choiceOne ? setChoiceTwo(cardChosen) : setChoiceOne(cardChosen);
   }
-
+  function resetTurn() {
+    setChoiceOne(null);
+    setChoiceTwo(null);
+    setTurns((prevTurns) => prevTurns + 1);
+    setDisabled(false);
+  }
   useEffect(() => {
     if (choiceOne && choiceTwo) {
       setDisabled(true);
@@ -57,21 +64,17 @@ function Game() {
       }
     }
   }, [choiceOne, choiceTwo]);
+  useEffect(() => {
+    shuffleCards();
+  }, []);
 
-  function resetTurn() {
-    setChoiceOne(null);
-    setChoiceTwo(null);
-    setTurns((prevTurns) => prevTurns + 1);
-    setDisabled(false);
-  }
   return (
     <div>
-      <div className="header-container">
-        <h1 className="display-4 my-3">Magic Match</h1>
-        <Button variant="warning" onClick={shuffleCards}>
+      <h1 className="display-4 my-3">Magic Match</h1>
+      {/* <Button variant="warning" onClick={shuffleCards}>
           Start the Game
-        </Button>{" "}
-      </div>
+        </Button>{" "} */}
+      <h2 className="display-5 my-3">Turns: {turns}</h2>
       <Container className="card-grid">
         <Row>
           {cards.map((card) => (
