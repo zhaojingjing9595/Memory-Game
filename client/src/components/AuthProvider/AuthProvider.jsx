@@ -1,7 +1,14 @@
 import React, { useReducer } from "react";
 import AuthContext from "../../context/AuthContext.js";
 import reducer from "../../reducer/reducer.js";
-import { DISPLAY_ALERT, CLEAR_ALERT } from "../../reducer/actions.js";
+import {
+  DISPLAY_ALERT,
+  CLEAR_ALERT,
+  SETUP_USER_BEGIN,
+  SETUP_USER_SUCCESS,
+  SETUP_USER_ERROR,
+  LOGOUT_USER,
+} from "../../reducer/actions.js";
 
 const initialState = {
   isAuthLoading: false,
@@ -23,6 +30,30 @@ function AuthProvider({ children }) {
     }, 3000);
   }
 
+  async function handleSignUp(currentUser) {
+    dispatch({ type: SETUP_USER_BEGIN });
+    try {
+      dispatch({ type: SETUP_USER_SUCCESS });
+    } catch (error) {
+      dispatch({ type: SETUP_USER_ERROR });
+    }
+    clearAlert();
+  }
+
+  async function handleLogIn(currentUser) {
+    dispatch({ type: SETUP_USER_BEGIN });
+    try {
+      dispatch({ type: SETUP_USER_SUCCESS });
+    } catch (error) {
+      dispatch({ type: SETUP_USER_ERROR });
+    }
+    clearAlert();
+  }
+
+  async function handleLogOut() {
+    dispatch({ type: LOGOUT_USER });
+  }
+
   function addUserToLocalStorage(user) {
     localStorage.setItem("user", JSON.stringify(user));
   }
@@ -32,7 +63,15 @@ function AuthProvider({ children }) {
   }
   return (
     <div>
-      <AuthContext.Provider value={{ ...state, displayAlert }}>
+      <AuthContext.Provider
+        value={{
+          ...state,
+          displayAlert,
+          onSignUp: handleSignUp,
+          onLogIn: handleLogIn,
+          onLogOut: handleLogOut,
+        }}
+      >
         {children}
       </AuthContext.Provider>
     </div>

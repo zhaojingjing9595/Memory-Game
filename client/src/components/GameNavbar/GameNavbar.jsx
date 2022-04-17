@@ -1,10 +1,16 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth.js";
 import "./GameNavbar.css";
-function GameNavbar(props) {
-  const { activeUser } = useAuth();
+function GameNavbar() {
+  const { activeUser, onLogOut } = useAuth();
+  const navigate = useNavigate();
+  function handleLogOut() {
+    onLogOut();
+    navigate("/");
+  }
+
   return (
     <div>
       <Navbar bg="dark" variant="dark" expand="lg">
@@ -22,10 +28,8 @@ function GameNavbar(props) {
               )}
             </Nav>
             <Nav className="me-auto auth">
-              {!activeUser ? (
-                <Nav.Link>Log In</Nav.Link>
-              ) : (
-                <Nav.Link>Log Out</Nav.Link>
+              {activeUser && (
+                <Nav.Link onClick={handleLogOut}>Log Out</Nav.Link>
               )}
             </Nav>
           </Navbar.Collapse>

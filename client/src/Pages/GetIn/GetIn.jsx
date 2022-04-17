@@ -1,21 +1,64 @@
 import React from "react";
 import { useState } from "react";
-import { Button } from "react-bootstrap";
-import { Form } from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
 import Login from "../../components/Login/Login";
 import Registration from "../../components/Registration/Registration";
+import useAuth from "../../hooks/useAuth";
+import Alert from "../../components/Alerts/Alert";
 import "./GetIn.css";
+import { useNavigate } from "react-router-dom";
 
-function GetIn(props) {
+function GetIn() {
   const [isMember, setIsMember] = useState(true);
   const [email, setEmail] = useState("");
   const [nickName, setNickName] = useState("");
   const [pwd, setPwd] = useState("");
   const [confirmPwd, setConfirmPwd] = useState("");
+  const {
+    onSignUp,
+    onLogIn,
+    isAuthLoading,
+    showAlert,
+    displayAlert,
+  } = useAuth();
+  const navigate = useNavigate();
+  async function handleLogIn(e) {
+    e.preventDefault();
+    if (!email || !pwd) {
+      displayAlert();
+      return;
+    } else {
+      console.log("login");
+      const currentUser = { email, pwd };
+      await onLogIn(currentUser);
+      navigate("/");
+      setEmail("");
+      setPwd("");
+    }
+  }
+
+  async function handleSignUp(e) {
+    e.preventDefault();
+    if (!nickName || !email || !pwd || !confirmPwd) {
+      displayAlert();
+      return;
+    } else {
+      console.log("signup");
+      const currentUser = { nickName, email, pwd, confirmPwd };
+      await onSignUp(currentUser);
+      navigate("/");
+      setNickName("");
+      setEmail("");
+      setPwd("");
+      confirmPwd("");
+    }
+  }
+
   return (
     <div className="mt-5 c-form">
       <h2 className="display-5 mt-3">{isMember ? "Log In" : "Sign up"}</h2>
-      <Form>
+      {showAlert && <Alert />}
+      <Form onSubmit={isMember ? handleLogIn : handleSignUp}>
         {isMember ? (
           <Login
             email={email}
@@ -37,26 +80,22 @@ function GetIn(props) {
             setIsMember={() => setIsMember(true)}
           />
         )}
+        <Button variant="warning" type="submit" disabled={isAuthLoading}>
+          {isMember ? "Log In" : "Sign Up"}
+          {isAuthLoading && (
+            <>
+              <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+              <span className="visually-hidden">Loading...</span>
+            </>
+          )}
+        </Button>
       </Form>
-      <Button
-        variant="warning"
-        // onClick={isMember ? handleLogIn : handleSignUp}
-        // disabled={isAuthLoading}
-      >
-        {isMember ? "Log In" : "Sign Up"}
-        {/* {isAuthLoading && (
-              <>
-                <Spinner
-                  as="span"
-                  animation="border"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-                <span className="visually-hidden">Loading...</span>
-              </>
-            )} */}
-      </Button>
     </div>
   );
 }
