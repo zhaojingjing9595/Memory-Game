@@ -1,8 +1,12 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { Col } from "react-bootstrap";
+import { Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
+import "./Game.css";
 
 const cardImages = [
   { src: "/img/helmet-1.png" },
@@ -30,6 +34,16 @@ function Game() {
       <Button variant="warning" onClick={shuffleCards}>
         Start the Game
       </Button>{" "}
+      <Container>
+        <Row>
+          {cards.map((card) => (
+            <Col key={card.id} md={3}>
+              <img className="front" src={card.src} alt="card front" />
+              <img className="back" src={"/img/cover.png"} alt="card back" />
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </div>
   );
 }
