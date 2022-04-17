@@ -6,6 +6,7 @@ import { Row } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
+import Card from "../../components/Card/Card";
 import "./Game.css";
 
 const cardImages = [
@@ -34,12 +35,11 @@ function Game() {
       <Button variant="warning" onClick={shuffleCards}>
         Start the Game
       </Button>{" "}
-      <Container>
+      <Container className="card-grid">
         <Row>
           {cards.map((card) => (
-            <Col key={card.id} md={3}>
-              <img className="front" src={card.src} alt="card front" />
-              <img className="back" src={"/img/cover.png"} alt="card back" />
+            <Col key={card.id} md={3} className="card-game">
+              <Card src={card.src} />
             </Col>
           ))}
         </Row>

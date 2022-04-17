@@ -1,1 +1,15 @@
+.card-grid {
+  margin-top: 40px;
+}
 
+.card-game {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.card-game img {
+  width: 100%;
+  display: block;
+  border: 2px solid #fff;
+  border-radius: 6px;
+}
