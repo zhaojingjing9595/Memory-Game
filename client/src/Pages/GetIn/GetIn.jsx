@@ -28,7 +28,6 @@ function GetIn() {
       displayAlert();
       return;
     } else {
-      console.log("login");
       const currentUser = { email, pwd };
       await onLogIn(currentUser);
       navigate("/");
@@ -43,7 +42,6 @@ function GetIn() {
       displayAlert();
       return;
     } else {
-      console.log("signup");
       const currentUser = { nickName, email, pwd, confirmPwd };
       await onSignUp(currentUser);
       navigate("/");
