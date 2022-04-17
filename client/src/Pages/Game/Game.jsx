@@ -21,6 +21,8 @@ const cardImages = [
 function Game() {
   const [cards, setCards] = useState([]);
   const [turns, setTurns] = useState(0);
+  const [choiceOne, setChoiceOne] = useState(null);
+  const [choiceTwo, setChoiceTwo] = useState(null);
 
   function shuffleCards() {
     const shuffledCards = [...cardImages, ...cardImages]
@@ -28,6 +30,27 @@ function Game() {
       .map((card) => ({ ...card, id: uuidv4() }));
     setCards(shuffledCards);
     setTurns(0);
+  }
+  function handleChoice(cardChosen) {
+    choiceOne ? setChoiceTwo(cardChosen) : setChoiceOne(cardChosen);
+  }
+
+  useEffect(() => {
+    if (choiceOne && choiceTwo) {
+      if (choiceOne.src === choiceTwo.src) {
+        console.log("those cards match");
+        resetTurn();
+      } else {
+        console.log("those doesn't match");
+        resetTurn();
+      }
+    }
+  }, [choiceOne, choiceTwo]);
+
+  function resetTurn() {
+    setChoiceOne(null);
+    setChoiceTwo(null);
+    setTurns((prevTurns) => prevTurns + 1);
   }
   return (
     <div>
@@ -39,7 +62,7 @@ function Game() {
         <Row>
           {cards.map((card) => (
             <Col key={card.id} md={3} className="card-game">
-              <Card src={card.src} />
+              <Card card={card} handleChoice={handleChoice} />
             </Col>
           ))}
         </Row>

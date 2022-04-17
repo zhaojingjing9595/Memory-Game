@@ -1,10 +1,18 @@
 import React from "react";
-
-function Card({ src }) {
+import "./Card.css";
+function Card({ card, handleChoice }) {
+  function handleClick() {
+    handleChoice(card);
+  }
   return (
     <>
-      <img className="front" src={src} alt="card front" />
-      <img className="back" src={"/img/cover.png"} alt="card back" />
+      <img className="front" src={card.src} alt="card front" />
+      <img
+        className="back"
+        src={"/img/cover.png"}
+        onClick={handleClick}
+        alt="card back"
+      />
     </>
   );
 }
