@@ -8,8 +8,7 @@ function Home(props) {
       <Container>
         <h1 className="display-1 mt-5">Welcome to our Game! </h1>
         <p className="display-6">
-          If you want to play our game, just <Link to="/login">LogIn</Link> or
-          you can register <Link to="/login">here</Link>
+          If you want to play our game, just <Link to="/getin">LogIn</Link>
         </p>
       </Container>
     </div>

@@ -8,6 +8,7 @@ import GameNavbar from "./components/GameNavbar/GameNavbar";
 import AuthProvider from "./components/AuthProvider/AuthProvider";
 import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import GetIn from "./Pages/GetIn/GetIn";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <GameNavbar />
         <Routes>
           <Route index element={<Home />} />
+          <Route path="/getin" element={<GetIn />} />
           <Route
             path="/game"
             element={
