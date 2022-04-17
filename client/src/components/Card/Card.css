@@ -4,8 +4,16 @@
 }
 
 .card-game img {
-  width: 100%;
-  display: block;
+  width: 60%;
   border: 2px solid #fff;
   border-radius: 6px;
+}
+
+.card-game .front {
+  transform: rotateY(90deg);
+  position: absolute;
+}
+
+.flipped .front {
+  transform: rotateY(0deg);
 }

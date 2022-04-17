@@ -1,3 +1,18 @@
 .card-grid {
   margin-top: 40px;
 }
+
+.card-game {
+  padding: 0;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.header-container > button {
+  margin-top: 1rem;
+}

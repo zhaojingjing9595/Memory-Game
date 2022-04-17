@@ -49,8 +49,9 @@ function Game() {
         });
         resetTurn();
       } else {
-        console.log("those doesn't match");
-        resetTurn();
+        setTimeout(() => {
+          resetTurn();
+        }, 1000);
       }
     }
   }, [choiceOne, choiceTwo]);
@@ -62,15 +63,23 @@ function Game() {
   }
   return (
     <div>
-      <h1 className="display-4 my-3">Magic Match</h1>
-      <Button variant="warning" onClick={shuffleCards}>
-        Start the Game
-      </Button>{" "}
+      <div className="header-container">
+        <h1 className="display-4 my-3">Magic Match</h1>
+        <Button variant="warning" onClick={shuffleCards}>
+          Start the Game
+        </Button>{" "}
+      </div>
       <Container className="card-grid">
         <Row>
           {cards.map((card) => (
             <Col key={card.id} md={3} className="card-game">
-              <Card card={card} handleChoice={handleChoice} />
+              <Card
+                card={card}
+                handleChoice={handleChoice}
+                flipped={
+                  card === choiceOne || card === choiceTwo || card.matched
+                }
+              />
             </Col>
           ))}
         </Row>

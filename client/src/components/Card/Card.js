@@ -1,11 +1,11 @@
 import React from "react";
 import "./Card.css";
-function Card({ card, handleChoice }) {
+function Card({ card, handleChoice, flipped }) {
   function handleClick() {
     handleChoice(card);
   }
   return (
-    <>
+    <div className={flipped ? "flipped" : ""}>
       <img className="front" src={card.src} alt="card front" />
       <img
         className="back"
@@ -13,7 +13,7 @@ function Card({ card, handleChoice }) {
         onClick={handleClick}
         alt="card back"
       />
-    </>
+    </div>
   );
 }
 
