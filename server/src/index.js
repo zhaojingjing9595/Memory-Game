@@ -1,8 +1,16 @@
 import express from 'express';
+import cors from "cors";
 import "dotenv/config";
-import authRoutes from './routes/authRoutes';
+import knex from "knex";
+import knexConfig from './data/knexfile.js';
+import authRoutes from './routes/authRoutes.js';
 
+const PORT = 8080;
+const appDB = knex(knexConfig);
 const app = new express();
+
+app.use(express.json());
+app.use(cors());
 
 app.get('/', (req, res) => { 
     res.send('welcome to the server!')
@@ -10,6 +18,14 @@ app.get('/', (req, res) => {
 
 app.use('/auth', authRoutes);
 
-app.listen(process.env.PORT, () => { 
-    console.log(`server is listening at port ${process.env.PORT}...`)
-})
+appDB.migrate
+  .latest()
+  .then((migration) => {
+    console.log("connected to DB", migration);
+    app.listen(PORT, () => {
+      console.log(`server is listening at port ${PORT}...`);
+    });
+  })
+  .catch((err) => console.log(err));
+
+export { appDB };

@@ -1,4 +1,4 @@
-import authModel from "../models/authModel";
+import authModel from "../models/authModel.js";
 
 async function login(req, res, next) {
     try {

@@ -6,12 +6,12 @@ async function login(email, password) {
     return response.data;
 }
 
-async function signUp(nickName, email, pwd, confirmPwd) { 
+async function signUp(nickName, email, password, rePassword) { 
     const response = await api.post("/auth/signup", {
       nickName,
       email,
-      pwd,
-      confirmPwd,
+      password,
+      rePassword,
     });
     return response.data
 }
