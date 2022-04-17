@@ -34,7 +34,7 @@ function reducer(state, action) {
     return {
       ...state,
       isAuthLoading: false,
-      activeUser: action.payload.userToSend,
+      activeUser: true,
     };
   }
   if (action.type === SETUP_USER_ERROR) {
