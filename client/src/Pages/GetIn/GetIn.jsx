@@ -48,7 +48,7 @@ function GetIn() {
       setNickName("");
       setEmail("");
       setPwd("");
-      confirmPwd("");
+      setConfirmPwd("");
     }
   }
 

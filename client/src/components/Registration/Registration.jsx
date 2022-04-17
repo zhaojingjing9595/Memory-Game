@@ -23,7 +23,7 @@ function Registration({
       </p>
       <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
         <Form.Label>Nickname</Form.Label>
-        <Form.Control value={nickName} onChange={setNickName} type="email" />
+        <Form.Control value={nickName} onChange={setNickName} type="name" />
       </Form.Group>
       <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
         <Form.Label>Email address</Form.Label>
