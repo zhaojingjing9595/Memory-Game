@@ -7,6 +7,7 @@ import { Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
 import Card from "../../components/Card/Card";
+import ModalWin from "../../components/ModalWin/ModalWin";
 import "./Game.css";
 
 const cardImages = [
@@ -24,8 +25,11 @@ function Game() {
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
+  const [matches, setMatches] = useState(0);
+  const [showModalWin, setShowModalWin] = useState(false);
 
   function shuffleCards() {
+    setMatches(0);
     const shuffledCards = [...cardImages, ...cardImages]
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: uuidv4() }));
@@ -56,6 +60,7 @@ function Game() {
             }
           });
         });
+        setMatches((prevMatches) => prevMatches + 1);
         resetTurn();
       } else {
         setTimeout(() => {
@@ -68,13 +73,23 @@ function Game() {
     shuffleCards();
   }, []);
 
+  useEffect(() => {
+    if (matches === cardImages.length) {
+      console.log("prueba");
+      setShowModalWin(true);
+    }
+  }, [matches]);
+
   return (
     <div>
-      <h1 className="display-4 my-3">Magic Match</h1>
-      {/* <Button variant="warning" onClick={shuffleCards}>
-          Start the Game
-        </Button>{" "} */}
-      <h2 className="display-5 my-3">Turns: {turns}</h2>
+      <div className="header-container">
+        <h2 className="display-5 my-3">Turns: {turns}</h2>
+        {matches === cardImages.length && (
+          <Button variant="warning" onClick={shuffleCards}>
+            Reset Game
+          </Button>
+        )}
+      </div>
       <Container className="card-grid">
         <Row>
           {cards.map((card) => (
@@ -91,6 +106,7 @@ function Game() {
           ))}
         </Row>
       </Container>
+      <ModalWin show={showModalWin} onHide={() => setShowModalWin(false)} />
     </div>
   );
 }
