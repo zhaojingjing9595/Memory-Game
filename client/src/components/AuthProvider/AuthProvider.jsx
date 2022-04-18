@@ -48,7 +48,6 @@ function AuthProvider({ children }) {
     dispatch({ type: SETUP_USER_BEGIN });
     try {
       const user = await login(email, password);
-      console.log(user);
       dispatch({ type: SETUP_USER_SUCCESS, payload: { user } });
       addUserToLocalStorage(user);
     } catch (error) {

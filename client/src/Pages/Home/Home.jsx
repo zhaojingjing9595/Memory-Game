@@ -1,6 +1,7 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 function Home() {
@@ -18,11 +19,13 @@ function Home() {
         ) : (
           <>
             <h1 className="display-1 mt-5">
-              Hello <span>{activeUser.nickName}</span>, welcome to our Game!{" "}
+              Hello {activeUser.nickName}, welcome to our Game!{" "}
             </h1>
-            <p className="display-6">
-              If you want to play, just <Link to="/getin">LogIn</Link>
-            </p>
+            <p className="display-6">Last amount of turns: 16</p>
+            <p className="display-6">Best Performance: 8</p>
+            <Button size="lg" variant="warning" to="game" as={NavLink}>
+              Start Game
+            </Button>{" "}
           </>
         )}
       </Container>
