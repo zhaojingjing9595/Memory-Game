@@ -29,7 +29,7 @@ function Home() {
             <h1 className="display-1 mt-5">
               Hello {activeUser.nickName}, welcome to our Game!{" "}
             </h1>
-            <p className="display-6">Last amount of turns: 16</p>
+            <p className="display-6">Last amount of turns: </p>
             <p className="display-6">Best Performance: 8</p>
             <Button size="lg" variant="warning" to="game" as={NavLink}>
               Start Game
