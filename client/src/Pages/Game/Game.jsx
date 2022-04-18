@@ -8,6 +8,7 @@ import { Button } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
 import Card from "../../components/Card/Card";
 import ModalWin from "../../components/ModalWin/ModalWin";
+import { addScore } from "../../services/api";
 import "./Game.css";
 
 const cardImages = [
@@ -68,14 +69,21 @@ function Game() {
         }, 1000);
       }
     }
-  }, [choiceOne, choiceTwo]);
+  }, [ choiceOne, choiceTwo ]);
+  
   useEffect(() => {
     shuffleCards();
   }, []);
 
   useEffect(() => {
+    // console.log(turns);
+    // async function addScore(turns) {
+    //   const score = await addScore(turns);
+    //   console.log(score);
+    // }
     if (matches === cardImages.length) {
-      setShowModalWin(true);
+      // addScore(turns);
+      setShowModalWin(true); 
     }
   }, [matches]);
 

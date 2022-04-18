@@ -16,4 +16,19 @@ async function signUp(nickName, email, pwd, confirmPwd) {
   return response.data;
 }
 
-export { login, signUp };
+async function addScore(turns) { 
+  const currentUser = localStorage.getItem("user");
+  const currentUserId = JSON.parse(currentUser).id;
+  const response = await api.post("/score/addScore", { turns, currentUserId });
+  return response.data;
+}
+
+async function getUserLastScore() {
+  
+}
+
+async function getUserBestScore() { 
+
+}
+
+export { login, signUp, addScore, getUserLastScore, getUserBestScore };

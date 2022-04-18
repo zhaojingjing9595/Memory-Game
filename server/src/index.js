@@ -4,6 +4,7 @@ import "dotenv/config";
 import knex from "knex";
 import knexConfig from "./data/knexfile.js";
 import authRoutes from "./routes/authRoutes.js";
+import scoreRoutes from "./routes/scoreRoutes.js";
 
 const PORT = process.env.PORT;
 const appDB = knex(knexConfig);
@@ -17,6 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRoutes);
+app.use("/score", scoreRoutes);
 
 appDB.migrate
   .latest()
