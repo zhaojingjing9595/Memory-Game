@@ -10,6 +10,7 @@ import {
   SETUP_USER_ERROR,
   LOGOUT_USER,
 } from "../../reducer/actions.js";
+import { useEffect } from "react";
 
 const localStorageUser = localStorage.getItem("user");
 
@@ -19,6 +20,8 @@ const initialState = {
   alertText: "",
   alertType: "",
   activeUser: localStorageUser ? JSON.parse(localStorageUser) : null,
+  lastScore: 0,
+  maxScore: 0,
 };
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -68,6 +71,11 @@ function AuthProvider({ children }) {
   function removeUserFromLocalStorage() {
     localStorage.removeItem("user");
   }
+
+  // useEffect(()=>{
+  //   //getLastScore
+  //   //getMaxScore
+  // },[lastScore,maxScore])
   return (
     <div>
       <AuthContext.Provider
