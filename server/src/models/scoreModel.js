@@ -8,4 +8,26 @@ async function addScore(turns, currentUserId) {
   return score;
 }
 
-export default {addScore}
+async function getLastScore(userId) {
+    const lastScoreArray = await appDB
+      .from("scores")
+      .where({ userId: userId })
+      .max("created_at");
+    const score = await appDB
+      .from("scores")
+      .where({
+        userId: userId,
+        created_at: lastScoreArray[0]["max(`created_at`)"],
+      });
+    return score[0];
+}
+
+async function getBestScore(userId) {
+     const bestScore = await appDB.from("scores").min('turns').where({ userId: userId });
+    const scores = await appDB
+      .from("scores")
+      .where({ userId: userId, turns: bestScore[0]["min(`turns`)"] });
+    return scores[0];
+}
+
+export default { addScore, getLastScore, getBestScore };
