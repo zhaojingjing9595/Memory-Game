@@ -15,6 +15,14 @@ function Home() {
             <p className="display-6">
               If you want to play, just <Link to="/getin">LogIn</Link>
             </p>
+            <h3 className="display-4 my-4" style={{ color: "#ffc107" }}>
+              Instructions
+            </h3>
+            <p className="display-6">
+              The player has to match two of the same cards. The amount of turns
+              you need to complete the game is your score, so try to do it in
+              the minus possible!
+            </p>
           </>
         ) : (
           <>
