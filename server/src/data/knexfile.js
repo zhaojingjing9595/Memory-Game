@@ -1,5 +1,6 @@
 import path from "path";
 import { dirname } from "path";
+import "dotenv/config";
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const pathToMigrations = path.resolve(__dirname, "../migrations");
@@ -9,7 +10,7 @@ const knexConfig = {
   connection: {
     database: "memory_game",
     user: "root",
-    password: "jj199581",
+    password: process.env.mySqlPassword,
   },
   pool: {
     min: 2,
