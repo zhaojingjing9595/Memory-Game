@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import Card from "../../components/Card/Card";
 import ModalWin from "../../components/ModalWin/ModalWin";
 import { addScore } from "../../services/api";
+import useAuth from "../../hooks/useAuth.js";
 import "./Game.css";
 
 const cardImages = [
@@ -19,8 +20,8 @@ const cardImages = [
   { src: "/img/shield-1.png", matched: false },
   { src: "/img/sword-1.png", matched: false },
 ];
-
 function Game() {
+  const { activeUser } = useAuth();
   const [cards, setCards] = useState([]);
   const [turns, setTurns] = useState(0);
   const [choiceOne, setChoiceOne] = useState(null);
@@ -69,21 +70,19 @@ function Game() {
         }, 1000);
       }
     }
-  }, [ choiceOne, choiceTwo ]);
-  
+  }, [choiceOne, choiceTwo]);
+
   useEffect(() => {
     shuffleCards();
   }, []);
 
   useEffect(() => {
-    // console.log(turns);
-    // async function addScore(turns) {
-    //   const score = await addScore(turns);
-    //   console.log(score);
-    // }
+    async function addScoreToMySql() {
+      await addScore(turns, activeUser.id);
+    }
     if (matches === cardImages.length) {
-      // addScore(turns);
-      setShowModalWin(true); 
+      addScoreToMySql();
+      setShowModalWin(true);
     }
   }, [matches]);
 
