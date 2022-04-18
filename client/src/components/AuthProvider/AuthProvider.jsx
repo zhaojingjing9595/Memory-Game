@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import AuthContext from "../../context/AuthContext.js";
-import { login, signUp } from "../../services/api.js";
+import { getUserLastScore, login, signUp, getUserBestScore } from "../../services/api.js";
 import reducer from "../../reducer/reducer.js";
 import {
   DISPLAY_ALERT,
@@ -20,11 +20,11 @@ const initialState = {
   alertText: "",
   alertType: "",
   activeUser: localStorageUser ? JSON.parse(localStorageUser) : null,
-  lastScore: 0,
-  maxScore: 0,
+  // lastScore: 0,
+  // bestScore: 0,
 };
 function AuthProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [ state, dispatch ] = useReducer(reducer, initialState);
   function displayAlert() {
     dispatch({ type: DISPLAY_ALERT });
     clearAlert();
@@ -72,10 +72,15 @@ function AuthProvider({ children }) {
     localStorage.removeItem("user");
   }
 
-  // useEffect(()=>{
-  //   //getLastScore
-  //   //getMaxScore
-  // },[lastScore,maxScore])
+  // useEffect(() => {
+  //   async function getScores() {
+  //     const lastScore = await getUserLastScore(state.activeUser.id);
+  //     const bestScore = await getUserBestScore(state.activeUser.id);
+  //     return [lastScore, bestScore];
+  //   }
+  //  const  [ lastScore, bestScore ] = getScores();
+  //   console.log(lastScore, bestScore);
+  // }, [state.lastScore, state.bestScore]);
   return (
     <div>
       <AuthContext.Provider

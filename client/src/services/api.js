@@ -23,6 +23,7 @@ async function addScore(turns, currentUserId) {
 
 async function getUserLastScore(currentUserId) {
   const response = await api.get(`/score/lastScore/:${currentUserId}`);
+  console.log(response.data);
   return response.data
 }
 
