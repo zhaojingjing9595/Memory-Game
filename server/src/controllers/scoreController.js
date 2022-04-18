@@ -14,4 +14,31 @@ async function addScore(req, res, next) {
     }
 }
 
-export default {addScore}
+async function getLastScore(req, res, next) {
+    try {
+        const userId = req.params.id;
+        const lastScore = await scoreModel.getLastScore(userId);
+        if (lastScore) { 
+            res.send(lastScore);
+            next();
+        }
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+async function getBestScore(req, res, next) {
+  try {
+    const userId = req.params.id;
+    const bestScore = await scoreModel.getBestScore(userId);
+    if (bestScore) {
+      res.send(bestScore);
+      next();
+    }
+  } catch (error) {
+    next(error);
+  }
+}
+
+export default { addScore, getLastScore, getBestScore };

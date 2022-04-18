@@ -28,7 +28,6 @@ function GetIn() {
       displayAlert();
       return;
     } else {
-      const currentUser = { email, pwd };
       await onLogIn(email, pwd);
       navigate("/");
       setEmail("");
@@ -41,8 +40,10 @@ function GetIn() {
     if (!nickName || !email || !pwd || !confirmPwd) {
       displayAlert();
       return;
+    } else if (pwd !== confirmPwd) {
+      displayAlert();
+      return;
     } else {
-      // const currentUser = { nickName, email, pwd, confirmPwd };
       await onSignUp(nickName, email, pwd, confirmPwd);
       navigate("/");
       setNickName("");

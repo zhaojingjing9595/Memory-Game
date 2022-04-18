@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { getUserBestScore, getUserLastScore } from "../../services/api";
 
 function Home() {
   const { activeUser } = useAuth();
+  const [lastScore, setLastScore] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
+
+  async function getScores() {
+    const lastScoreUser = await getUserLastScore(activeUser.id);
+    const bestScoreUser = await getUserBestScore(activeUser.id);
+    console.log(lastScoreUser, "lastScore");
+    console.log(bestScoreUser, "bestScore");
+    setLastScore(lastScoreUser.turns);
+    setBestScore(bestScoreUser.turns);
+  }
+  useEffect(() => {
+    activeUser && getScores();
+  }, []);
+
   return (
     <div className="home">
       <Container>
@@ -29,8 +45,8 @@ function Home() {
             <h1 className="display-1 mt-5">
               Hello {activeUser.nickName}, welcome to our Game!{" "}
             </h1>
-            <p className="display-6">Last amount of turns: </p>
-            <p className="display-6">Best Performance: 8</p>
+            <p className="display-6">Last amount of turns:{lastScore}</p>
+            <p className="display-6">Best Performance:{bestScore}</p>
             <Button size="lg" variant="warning" to="game" as={NavLink}>
               Start Game
             </Button>{" "}

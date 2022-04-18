@@ -21,8 +21,14 @@ async function addScore(turns, currentUserId) {
   return response.data;
 }
 
-async function getUserLastScore() {}
+async function getUserLastScore(currentUserId) {
+  const response = await api.get(`/score/lastScore/${currentUserId}`);
+  return response.data;
+}
 
-async function getUserBestScore() {}
+async function getUserBestScore(currentUserId) {
+  const response = await api.get(`/score/bestScore/${currentUserId}`);
+  return response.data;
+}
 
 export { login, signUp, addScore, getUserLastScore, getUserBestScore };
