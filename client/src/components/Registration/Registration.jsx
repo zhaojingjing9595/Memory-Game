@@ -34,7 +34,7 @@ function Registration({
         <Form.Control value={pwd} onChange={setPwd} type="password" />
       </Form.Group>
       <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
-        <Form.Label>Repete Password</Form.Label>
+        <Form.Label>Repeat Password</Form.Label>
         <Form.Control
           value={confirmPwd}
           onChange={setConfirmPwd}

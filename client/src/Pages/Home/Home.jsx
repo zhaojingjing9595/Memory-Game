@@ -1,8 +1,10 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 function Home() {
+  const { activeUser } = useAuth();
   return (
     <div className="home">
       <Container>

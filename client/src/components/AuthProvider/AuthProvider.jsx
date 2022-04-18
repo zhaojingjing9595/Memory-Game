@@ -11,12 +11,14 @@ import {
   LOGOUT_USER,
 } from "../../reducer/actions.js";
 
+const localStorageUser = localStorage.getItem("user");
+
 const initialState = {
   isAuthLoading: false,
   showAlert: false,
   alertText: "",
   alertType: "",
-  activeUser: null,
+  activeUser: localStorageUser || null,
 };
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -34,7 +36,7 @@ function AuthProvider({ children }) {
     dispatch({ type: SETUP_USER_BEGIN });
     try {
       const user = await signUp(nickName, email, pwd, confirmPwd);
-      console.log(user);
+      addUserToLocalStorage(user);
       dispatch({ type: SETUP_USER_SUCCESS, payload: {} });
     } catch (error) {
       dispatch({ type: SETUP_USER_ERROR });
@@ -46,7 +48,7 @@ function AuthProvider({ children }) {
     dispatch({ type: SETUP_USER_BEGIN });
     try {
       const user = await login(email, password);
-      console.log(user);
+      addUserToLocalStorage(user);
       dispatch({ type: SETUP_USER_SUCCESS });
     } catch (error) {
       dispatch({ type: SETUP_USER_ERROR });
@@ -56,6 +58,7 @@ function AuthProvider({ children }) {
 
   async function handleLogOut() {
     dispatch({ type: LOGOUT_USER });
+    removeUserFromLocalStorage();
   }
 
   function addUserToLocalStorage(user) {
