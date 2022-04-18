@@ -28,7 +28,11 @@ function GameNavbar() {
               )}
             </Nav>
             <Nav className="me-auto auth">
-              {activeUser && (
+              {!activeUser ? (
+                <Nav.Link to="getin" as={NavLink}>
+                  LogIn
+                </Nav.Link>
+              ) : (
                 <Nav.Link onClick={handleLogOut}>Log Out</Nav.Link>
               )}
             </Nav>

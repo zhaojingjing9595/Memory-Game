@@ -18,7 +18,7 @@ const initialState = {
   showAlert: false,
   alertText: "",
   alertType: "",
-  activeUser: localStorageUser || null,
+  activeUser: localStorageUser ? JSON.parse(localStorageUser) : null,
 };
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -36,8 +36,8 @@ function AuthProvider({ children }) {
     dispatch({ type: SETUP_USER_BEGIN });
     try {
       const user = await signUp(nickName, email, pwd, confirmPwd);
+      dispatch({ type: SETUP_USER_SUCCESS, payload: { user } });
       addUserToLocalStorage(user);
-      dispatch({ type: SETUP_USER_SUCCESS, payload: {} });
     } catch (error) {
       dispatch({ type: SETUP_USER_ERROR });
     }
@@ -48,8 +48,9 @@ function AuthProvider({ children }) {
     dispatch({ type: SETUP_USER_BEGIN });
     try {
       const user = await login(email, password);
+      console.log(user);
+      dispatch({ type: SETUP_USER_SUCCESS, payload: { user } });
       addUserToLocalStorage(user);
-      dispatch({ type: SETUP_USER_SUCCESS });
     } catch (error) {
       dispatch({ type: SETUP_USER_ERROR });
     }
