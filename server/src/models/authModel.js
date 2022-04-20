@@ -7,12 +7,13 @@ async function login(email, password) {
   return result;
 }
 
-async function signup(nickName, email, pwd, confirmPwd) {
+async function signup(nickName, email, pwd, confirmPwd, hashPassword) {
   const newUser = {
     nickName: nickName,
     email: email,
     password: pwd,
     rePassword: confirmPwd,
+    hashPassword: hashPassword,
   };
   const userId = await appDB.from("users").insert(newUser);
   console.log(userId[0]);
