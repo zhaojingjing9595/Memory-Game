@@ -3,10 +3,10 @@ const registerUserSchema = {
   properties: {
     nickName: { type: "string" },
     email: { type: "string" },
-    password: { type: "string" },
-    rePassword: { type: "string" },
+    pwd: { type: "string" },
+    confirmPwd: { type: "string" },
   },
-  required: ["nickName", "email", "password", "rePassword"],
+  required: ["nickName", "email", "pwd", "confirmPwd"],
   additionalProperties: false,
 };
 

@@ -9,6 +9,7 @@ const validatelog = ajv.compile(logInUserSchema);
 
 async function checkRegFields(req, res, next) {
   const valid = validateReg(req.body);
+  console.log(valid);
   if (!valid) {
     res.status(400).send("complete all fields");
   }
