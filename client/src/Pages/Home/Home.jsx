@@ -29,7 +29,7 @@ function Home() {
           <>
             <h1 className="display-1 mt-5">Welcome to our Game!</h1>
             <p className="display-6">
-              If you want to play, just <Link to="/getin">LogIn</Link>
+              If you want to play, just <Link to="/getin">Login</Link>
             </p>
             <h3 className="display-4 my-4" style={{ color: "#ffc107" }}>
               Instructions
